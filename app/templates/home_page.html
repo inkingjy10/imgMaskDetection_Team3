@@ -1,0 +1,70 @@
+{% extends "template.html" %}
+{% block content %}
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-12">
+            <h1>[Team3] Welcome to the mask detector live</h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="container-fluid">
+        <div id="frame_container" class="row">
+            <div class="col-12">
+                <img src="/static/images/stay-safe.jpg"
+                     class="img-thumbnail img-fluid mx-auto d-block">
+            </div>
+        </div>
+        <div class="row mt-3 mb-5">
+            <div class="col-6 d-flex justify-content-end">
+                <button id="start" onclick="start()" class="btn btn-outline-success"><i class="fa fa-video-camera"
+                                                                                        aria-hidden="true"></i> Start
+                </button>
+            </div>
+            <div class="col-6 d-flex justify-content-start">
+                <button id="stop" onclick="stop()" class="btn btn-danger active"><i class="fa fa-stop"
+                                                                                    aria-hidden="true"></i> Stop
+                </button>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <h4>What is this?</h4>
+        </div>
+        <div class="row">
+            <p>이 페이지는 마스크 착용 여부를 판단할 수 있는 라이브 감지 페이지 입니다. 마스크 착용/미착용 사진을 학습한 카메라가 실시간으로 현재 착용 여부를 판단합니다.</p>
+        </div>
+        <div class="row">
+            <h4>Who we are</h4>
+        </div>
+        <div class="row mb-5">
+            <p>안녕하세요 KT&G팀입니다.</p>
+            <p class="d-flex mx-auto lead text-danger"><strong>please, stay safe and wear a mask</strong>.</p>
+            <p></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block custom_js %}
+<script>
+$(document).ready(function(){
+    $('#image-detector').attr('class', 'nav-item');
+    $('#live').attr('class', 'nav-item active');
+})
+
+    function stop(){
+        $("img").attr("src", "/static/images/stay-safe.jpg");
+        $("#stop").attr("class","btn btn-danger active");
+
+        $("#start").attr("class","btn btn-outline-success");
+    }
+    function start(){
+        $("img").attr("src", "{{url_for('main.video_feed')}}");
+        $("#start").attr("class","btn btn-success active");
+
+        $("#stop").attr("class","btn btn-outline-danger");
+    }
+
+</script>
+
+{% endblock %}
